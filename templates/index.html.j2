@@ -1,0 +1,36 @@
+{% extends "base_template.html.j2" %}
+
+{% block title %}IBM BECh: Tiempo Excedido{% endblock %}
+{% block refresh %}<meta http-equiv="refresh" content="5"/>{% endblock %}
+
+{% block content %}
+  <h1 class="display text-center">Control de Tiempo Excedido</h1>
+    <div class="row">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Proceso</th>
+            <th scope="col">Malla</th>
+            <th scope="col">Hora Inicio</th>
+            <th scope="col">Tiempo Promedio</th>
+            <th scope="col">Tiempo Ejecución</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+            {% if task.justificar == True %}
+              <tr>
+                <th scope="row">{{task.proceso}}</th>
+                <td>{{task.malla}}</td>
+                <td>{{task.inicio.strftime('%H:%M')}}</td>
+                <td>{{task.promedio}}</td>
+                <td>{{task.ejecucion}}</td>
+                <td><a href="/excuse/{{task.id}}" class="btn btn-success btn-sm">Justificar</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}

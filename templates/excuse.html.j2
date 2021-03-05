@@ -1,0 +1,108 @@
+{% extends "base_template.html.j2" %}
+
+{% block title %}IBM BECh: Tiempo Excedido{% endblock %}
+
+{% block content %}
+  <h1 class="display text-center">Justificar Tiempo Excedido</h1>
+    <div class="row">
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <td>Proceso: </td>
+            <td>{{task.proceso}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Malla:</td>
+            <td>{{task.malla}}</td>
+          </tr>
+          <tr>
+            <td>Hora Inicio:</td>
+            <td>{{task.inicio}}</td>
+          </tr>
+          <tr>
+            <td>Tiempo Promedio:</td>
+            <td>{{task.promedio}}</td>
+          </tr>
+          <tr>
+            <td>Tiempo Ejecución:</td>
+            <td>{{task.ejecucion}}</td>
+          </tr>
+          <tr>
+             <form action="/worklog-add" method="POST" >
+                 <input type="hidden" name="timeout_id" value={{task.id}}>
+                  <input type="hidden" name="ahora" value={{task.ahora}}>
+                <td><label name="justificacion">Ingresa la justificación aquí...</label></td>
+                <td>
+                  <div class="form-group">
+                    <textarea class="form-control" name="comentario" rows="3"></textarea>
+                  </div>
+                </td>
+          </tr>
+          <tr>
+                <td>Operador:</td>
+                <td>
+                  <div class="form-group">
+                    <select class="form-control" name="operador">
+                      <option value="Karen Calas">Karen Calas</option>
+                      <option value="José Clerici">José Clerici</option>
+                      <option value="Salvador Selman">Salvador Selman</option>
+                      <option value="Carlos Flores">Carlos Flores</option>
+                      <option value="Rigoberto Medel">Rigoberto Medel</option>
+                      <option value="Hugo Velasquez">Hugo Velasquez</option>
+                      <option value="Raúl Toro">Raúl Toro</option>
+                      <option value="Francisco Bravo">Francisco Bravo</option>
+                      <option value="Ricardo Duran">Ricardo Duran</option>
+                      <option value="Renato Hidalgo">Renato Hidalgo</option>
+                      <option value="Roberto Borquez">Roberto Borquez</option>
+                      <option value="Felipe Valenzuela">Felipe Valenzuela</option>
+                      <option value="Marco Mejias">Marco Mejias</option>
+                      <option value="Sergio Fernandez">Sergio Fernandez</option>
+                      <option value="Héctor Mansilla">Héctor Mansilla</option>
+                    </select>
+                  </div>
+                </td>
+          </tr>
+          <tr>
+                <td></td>
+                <td>
+                  <div class="form-group">
+                    <button type="submit" name="button" class="btn btn-success btn-sm">Ingresar</button>
+                    <span><a href="{{url_for('home')}}" class="btn btn-success btn-sm">Cancelar</a></span>
+                  </div>
+                  </form>
+                </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row mt-5">
+        <h3 class="display text-center">Bitácora Tiempo Excedido</h3>
+    </div>
+    {% for worklog in task.worklogs %}
+    <div class="row mt-4">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Proceso</th>
+                <th scope="col">Malla</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Operador</th>
+              </tr>
+            </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{worklog.timeouts.proceso}}</th>
+                    <td>{{worklog.timeouts.malla}}</td>
+                    <td>{{worklog.ahora.strftime('%H:%M')}}</td>
+                    <td>{{worklog.operador}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><b>Comentario:</b> {{worklog.comentario}}</td>
+                  </tr>
+            </tbody>
+          </table>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base_template.html.j2" %}
+
+{% block title %}IBM BECh: Tiempo Excedido{% endblock %}
+
+{% block content %}
+  <h1 class="display text-center">Reporte de procesos con tiempos excedidos</h1>
+  <div class="row">
+    <form action="/grte" method="POST" >
+      <div class="form-group">
+          <label>Elija el día para generar reporte:</label>
+          <input class="form-control" name="fecha" placeholder="Usar el formato 26-09-1979">
+      </div>
+      <div class="form-group">
+        <button type="submit" name="button" class="btn btn-success btn-sm">Generar Reporte</button>
+        <td><a href="{{url_for('home')}}" class="btn btn-success btn-sm">Cancelar</a></td>
+      </div>
+    </form>
+  </div>
+{% endblock %}

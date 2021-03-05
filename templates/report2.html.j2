@@ -1,0 +1,35 @@
+{% extends "base_template.html.j2" %}
+
+{% block title %}IBM BECh: Tiempo Excedido{% endblock %}
+
+{% block content %}
+  <h1 class="display text-center">Reporte de procesos con tiempos excedidos</h1>
+  <h3 class="display text-center">Fecha Formulario {{fecha}}</h3>
+  <div class="row">
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Proceso</th>
+              <th scope="col">Malla</th>
+              <th scope="col">Hora</th>
+              <th scope="col">Operador</th>
+            </tr>
+          </thead>
+          {% for task in tasks %}
+              {% if task.timeouts.inicio.strftime('%d-%m-%Y') == fecha %}
+              <tbody>
+                <tr>
+                  <th scope="row">{{task.timeouts.proceso}}</th>
+                  <td>{{task.timeouts.malla}}</td>
+                  <td>{{task.ahora.strftime('%H:%M')}}</td>
+                  <td>{{task.operador}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4"><b>Comentario:</b> {{task.comentario}}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+  </div>
+{% endblock %}
