@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ## Iniciación 
 Crear el modelo de datos, ingresando al interprete de Python y en él ingresamos lo siguiente:
 ```
-from proyecto import db
+from antu import db
 db.create_all()
 ```
 
